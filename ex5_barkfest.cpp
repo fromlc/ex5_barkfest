@@ -36,26 +36,37 @@ namespace bf {
 int main() {
 
     // app banner
-    cout << "\nWelcome to the neighborhood barkfest.\n\n";
+    cout << "\nWelcome to the neighborhood barkfest!\n\n";
 
-    // seed random number generator for different sequence each run
-    srand((unsigned int)time(0));
+    while (true) {
 
-    // generate number of barking sounds to make
-    int bark_count = rand() % BARK_COUNT + 1;
+        // seed random number generator for different sequence each run
+        srand((unsigned int)time(0));
 
-    // determine how many barking sounds the barkfest array contains
-    int barks_avail = sizeof(bf::barkfest) / sizeof(string);
+        // generate number of barking sounds to make
+        int bark_count = rand() % BARK_COUNT + 1;
 
-    // each loop iteration makes one barking sound
-    for (int i = 0; i < bark_count; ++i) {
+        // determine how many barking sounds the barkfest array contains
+        int barks_avail = sizeof(bf::barkfest) / sizeof(string);
 
-        // select a random barking sound to display
-        int bark_selected = rand() % barks_avail;
-        cout << '\t' << bf::barkfest[bark_selected] << '\n';
+        // each loop iteration makes one barking sound
+        for (int i = 0; i < bark_count; ++i) {
+
+            // select a random barking sound to display
+            int bark_selected = rand() % barks_avail;
+            cout << '\t' << bf::barkfest[bark_selected] << '\n';
+        }
+
+        cout << "\nAnother barkfest? (y/n) ";
+        char another;
+        cin >> another;
+        
+        if (toupper(another) != 'Y')
+            break;
+
+        cout << '\n';
     }
 
-    cout << '\n';
-
+    cout << "\nGoodbye!\n";
     return 0;
 }
