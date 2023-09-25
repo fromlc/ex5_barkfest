@@ -4,7 +4,7 @@
 // Creates a cacophony of barking sounds
 //      - generates a random number of sounds to make
 //      - random number of sounds ranges from 1 to BARK_COUNT
-//      - selects random sounds from global barkfest[] array
+//      - selects each random sound from global barkfest[] array
 //------------------------------------------------------------------------------
 #include <iostream>
 
@@ -19,31 +19,43 @@ constexpr int BARK_COUNT = 20;
 //------------------------------------------------------------------------------
 // globals
 //------------------------------------------------------------------------------
-string barkfest[] = {
-    "Bark bark bark! ",
-    "Woooof! ",
-    "Yip! ",
-    "Yap yap! ",
-    "Arf! Arf! ",
-    "Hooowwwwwllll!! ",
-};
+namespace bf {
+    string barkfest[] = {
+        "Bark bark bark! ",
+        "Woooof! ",
+        "Yip! ",
+        "Yap yap! ",
+        "Arf! Arf! ",
+        "Hooowwwwwllll!! ",
+    };
+}
 
 //------------------------------------------------------------------------------
 // entry point
 //------------------------------------------------------------------------------
 int main() {
 
+    // app banner
+    cout << "\nWelcome to the neighborhood barkfest.\n\n";
+
+    // seed random number generator for different sequence each run
     srand((unsigned int)time(0));
 
+    // generate number of barking sounds to make
     int bark_count = rand() % BARK_COUNT + 1;
-    int barks_avail = sizeof(barkfest) / sizeof(string);
 
+    // determine how many barking sounds the barkfest array contains
+    int barks_avail = sizeof(bf::barkfest) / sizeof(string);
+
+    // each loop iteration makes one barking sound
     for (int i = 0; i < bark_count; ++i) {
+
+        // select a random barking sound to display
         int bark_selected = rand() % barks_avail;
-        cout << barkfest[bark_selected] << "\n";
+        cout << '\t' << bf::barkfest[bark_selected] << '\n';
     }
 
-    cout << "\n";
+    cout << '\n';
 
     return 0;
 }
