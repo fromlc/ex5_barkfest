@@ -38,10 +38,10 @@ int main() {
     // app banner
     cout << "\nWelcome to the neighborhood barkfest!\n\n";
 
-    while (true) {
+    // seed random number generator for different sequence each run
+    srand((unsigned int)time(0));
 
-        // seed random number generator for different sequence each run
-        srand((unsigned int)time(0));
+    while (true) {
 
         // generate number of barking sounds to make
         int bark_count = rand() % BARK_COUNT + 1;
@@ -65,7 +65,8 @@ int main() {
             break;
 
         cout << '\n';
-    }
+
+    } // while user wants another
 
     cout << "\nGoodbye!\n";
     return 0;
