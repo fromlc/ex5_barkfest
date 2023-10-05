@@ -41,13 +41,13 @@ int main() {
     // seed random number generator for different sequence each run
     srand((unsigned int)time(0));
 
+    // determine how many barking sounds the barkfest array contains
+    int barks_avail = sizeof(bf::barkfest) / sizeof(string);
+
     while (true) {
 
         // generate number of barking sounds to make
         int bark_count = rand() % BARK_COUNT + 1;
-
-        // determine how many barking sounds the barkfest array contains
-        int barks_avail = sizeof(bf::barkfest) / sizeof(string);
 
         // each loop iteration makes one barking sound
         for (int i = 0; i < bark_count; ++i) {
