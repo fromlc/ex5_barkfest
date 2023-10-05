@@ -17,26 +17,12 @@ using namespace std;
 constexpr int BARK_COUNT = 20;
 
 //------------------------------------------------------------------------------
-// globals
-//------------------------------------------------------------------------------
-namespace bf {
-    string barkfest[] = {
-        "Bark bark bark! ",
-        "Woooof! ",
-        "Yip! ",
-        "Yap yap! ",
-        "Arf! Arf! ",
-        "Hooowwwwwllll!! ",
-    };
-}
-
-//------------------------------------------------------------------------------
 // local function prototypes
 //------------------------------------------------------------------------------
 void app_setup();
 void display_banner();
 char get_char_input();
-void generate_barkfests(int);
+void generate_barkfests(string[], int);
 int app_teardown();
 
 //------------------------------------------------------------------------------
@@ -44,67 +30,79 @@ int app_teardown();
 //------------------------------------------------------------------------------
 int main() {
 
-    app_setup();
+	// array is local to main
+	string barkfest[] = {
+		"Bark bark bark! ",
+		"Woooof! ",
+		"Yip! ",
+		"Yap yap! ",
+		"Arf! Arf! ",
+		"Hooowwwwwllll!! ",
+	};
 
-    // pass how many sounds the barkfest array contains
-    generate_barkfests(sizeof(bf::barkfest) / sizeof(string));
+	app_setup();
 
-    return app_teardown();
+	// Local barkfest array will not be in function scope,
+	// so we need pass the array and how many sounds it contains.
+	generate_barkfests(barkfest, sizeof(barkfest) / sizeof(string));
+
+	return app_teardown();
 }
 
 //------------------------------------------------------------------------------
 // app setup tasks
 //------------------------------------------------------------------------------
 void app_setup() {
-    
-    // seed random number generator for different sequence each run
-    srand((unsigned int)time(0));
 
-    display_banner();
+	// seed random number generator for different sequence each run
+	srand((unsigned int)time(0));
+
+	display_banner();
 }
 
 //------------------------------------------------------------------------------
 // display app banner and user instructions
 //------------------------------------------------------------------------------
 void display_banner() {
-    cout << "\nWelcome to the neighborhood barkfest!\n\n";
+	cout << "\nWelcome to the neighborhood barkfest!\n\n";
 }
 
 //------------------------------------------------------------------------------
 // returns first type char from user input as UPPER CASE
 //------------------------------------------------------------------------------
 char get_char_input() {
-    char ch;
-    cin >> ch;
-    return toupper(ch);
+	char ch;
+	cin >> ch;
+	return toupper(ch);
 }
 
 //------------------------------------------------------------------------------
-// generate random barkfests until user wants to quit
+// - generates random barkfests until user wants to quit
+// - parameters: array of bark sound strings, number of elements in array
 //------------------------------------------------------------------------------
-void generate_barkfests(int barks_avail) {
+void generate_barkfests(string bark_sounds[], int barks_avail) {
 
-    // loop until user wants to quit
-    while (true) {
+	// loop until user wants to quit
+	while (true) {
 
-        // generate number of barking sounds to make
-        int bark_count = rand() % BARK_COUNT + 1;
+		// generate number of barking sounds to make
+		int bark_count = rand() % BARK_COUNT + 1;
 
-        // each loop iteration makes one barking sound
-        for (int i = 0; i < bark_count; ++i) {
+		// each loop iteration makes one barking sound
+		for (int i = 0; i < bark_count; ++i) {
 
-            // select a random barking sound to display
-            int bark_selected = rand() % barks_avail;
-            cout << '\t' << bf::barkfest[bark_selected] << '\n';
-        }
+			// select a random barking sound to display
+			int bark_selected = rand() % barks_avail;
+			cout << '\t' << bark_sounds[bark_selected] << '\n';
+		}
 
-        cout << "\nAnother barkfest? (y/n) ";
-        if (get_char_input() != 'Y')
-            break;
+		cout << "\nAnother barkfest? (y/n) ";
+		if (get_char_input() != 'Y')
+			break;
 
-        cout << '\n';
+		cout << '\n';
 
-    } // while user wants another
+	} // while user wants another
 }
 
 //------------------------------------------------------------------------------
@@ -112,8 +110,8 @@ void generate_barkfests(int barks_avail) {
 // - returns status of completed tasks
 //------------------------------------------------------------------------------
 int app_teardown() {
-    cout << "\nGoodbye!\n";
+	cout << "\nGoodbye!\n";
 
-    return 0;
+	return 0;
 }
 
