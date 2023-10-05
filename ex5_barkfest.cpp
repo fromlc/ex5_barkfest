@@ -31,6 +31,11 @@ namespace bf {
 }
 
 //------------------------------------------------------------------------------
+// local function prototypes
+//------------------------------------------------------------------------------
+char get_char_input();
+
+//------------------------------------------------------------------------------
 // entry point
 //------------------------------------------------------------------------------
 int main() {
@@ -44,6 +49,7 @@ int main() {
     // determine how many barking sounds the barkfest array contains
     int barks_avail = sizeof(bf::barkfest) / sizeof(string);
 
+    // loop until user wants to quit
     while (true) {
 
         // generate number of barking sounds to make
@@ -58,10 +64,7 @@ int main() {
         }
 
         cout << "\nAnother barkfest? (y/n) ";
-        char another;
-        cin >> another;
-        
-        if (toupper(another) != 'Y')
+        if (get_char_input() != 'Y')
             break;
 
         cout << '\n';
@@ -70,4 +73,13 @@ int main() {
 
     cout << "\nGoodbye!\n";
     return 0;
+}
+
+//------------------------------------------------------------------------------
+// returns first type char from user input as UPPER CASE
+//------------------------------------------------------------------------------
+char get_char_input() {
+    char ch;
+    cin >> ch;
+    return toupper(ch);
 }
