@@ -33,21 +33,56 @@ namespace bf {
 //------------------------------------------------------------------------------
 // local function prototypes
 //------------------------------------------------------------------------------
+void app_setup();
+void display_banner();
 char get_char_input();
+void generate_barkfests(int);
+int app_teardown();
 
 //------------------------------------------------------------------------------
 // entry point
 //------------------------------------------------------------------------------
 int main() {
 
-    // app banner
-    cout << "\nWelcome to the neighborhood barkfest!\n\n";
+    app_setup();
 
+    // pass how many sounds the barkfest array contains
+    generate_barkfests(sizeof(bf::barkfest) / sizeof(string));
+
+    return app_teardown();
+}
+
+//------------------------------------------------------------------------------
+// app setup tasks
+//------------------------------------------------------------------------------
+void app_setup() {
+    
     // seed random number generator for different sequence each run
     srand((unsigned int)time(0));
 
-    // determine how many barking sounds the barkfest array contains
-    int barks_avail = sizeof(bf::barkfest) / sizeof(string);
+    display_banner();
+}
+
+//------------------------------------------------------------------------------
+// display app banner and user instructions
+//------------------------------------------------------------------------------
+void display_banner() {
+    cout << "\nWelcome to the neighborhood barkfest!\n\n";
+}
+
+//------------------------------------------------------------------------------
+// returns first type char from user input as UPPER CASE
+//------------------------------------------------------------------------------
+char get_char_input() {
+    char ch;
+    cin >> ch;
+    return toupper(ch);
+}
+
+//------------------------------------------------------------------------------
+// generate random barkfests until user wants to quit
+//------------------------------------------------------------------------------
+void generate_barkfests(int barks_avail) {
 
     // loop until user wants to quit
     while (true) {
@@ -70,16 +105,15 @@ int main() {
         cout << '\n';
 
     } // while user wants another
+}
 
+//------------------------------------------------------------------------------
+// - performs tasks needed before exiting app
+// - returns status of completed tasks
+//------------------------------------------------------------------------------
+int app_teardown() {
     cout << "\nGoodbye!\n";
+
     return 0;
 }
 
-//------------------------------------------------------------------------------
-// returns first type char from user input as UPPER CASE
-//------------------------------------------------------------------------------
-char get_char_input() {
-    char ch;
-    cin >> ch;
-    return toupper(ch);
-}
